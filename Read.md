@@ -12,3 +12,4 @@
 11. python manage.py createsuperuser (admin-1)
 12. в этот файл `friends.html` я подключил опцию `Registration required.`  Она уже была. Поэтому не стал подлкючать
 FlatPageAdmin(FlatPageAdmin).
+Доступ к админке: (admin,1)
