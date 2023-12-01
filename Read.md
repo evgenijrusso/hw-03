@@ -10,4 +10,5 @@
 9. сделал исходные миграции
 10. создал каталоги 'template, static' и добавил их относительный адрес в `settings`
 11. python manage.py createsuperuser (admin-1)
-
+12. в этот файл `friends.html` я подключил опцию `Registration required.`  Она уже была. Поэтому не стал подлкючать
+FlatPageAdmin(FlatPageAdmin).
