@@ -13,3 +13,5 @@
 12. в этот файл `friends.html` я подключил опцию `Registration required.`  Она уже была. Поэтому не стал подлкючать
 FlatPageAdmin(FlatPageAdmin).
 Доступ к админке: (admin,1)
+13. Изменил наименование рабочего каталога проекта (project->work)
+14. Добавил новое приложение `python manage.py startapp simpleapp`
