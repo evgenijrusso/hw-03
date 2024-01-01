@@ -12,7 +12,7 @@ class Product(models.Model):
     price = models.FloatField(validators=[MinValueValidator(0.0)],)
 
     def __str__(self):
-        return f'{self.name.title()} {self.description[:20]}'
+        return f'{self.name.title()} {self.description[:30]}'
 
 
 # Категория, к которой будет привязываться товар

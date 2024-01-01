@@ -1,0 +1,9 @@
+{% extends "flatpages/base.html" %}
+<html lang="en">
+{% block title %} Product {% endblock title %}
+<body>
+
+<!-- В контенте на странице мы выводим сам товар, идентификатор которого был передан в url -->
+{% block content %}
+<h3>{{ product }}</h3>
+{% endblock content %}

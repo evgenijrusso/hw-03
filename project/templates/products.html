@@ -1,0 +1,14 @@
+{% extends "flatpages/base.html" %}
+<html lang="en">
+{% block title %} Product {% endblock title %}
+<body>
+
+<!-- В контенте на странице мы выводим все товары -->
+{% block content %}
+    <b><h4>Все товары</h4></b>
+    <hr>
+    <b>{{ products }}</b>
+{% endblock content %}
+
+</body>
+</html>
