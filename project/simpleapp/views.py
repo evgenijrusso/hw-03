@@ -12,6 +12,18 @@ class ProductList(ListView):
     # Его надо указать, чтобы обратиться к списку объектов в html-шаблоне.
 
 
+    # Метод get_context_data позволяет нам изменить набор данных,  который будет передан в шаблон.
+    # С помощью super() мы обращаемся к родительским классам и вызываем у них метод get_context_data
+    # с теми же аргументами,  что и были переданы нам.  В ответе мы должны получить словарь.
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['time_now'] = datetime.utcnow()
+        # К словарю добавим текущую дату в ключ 'time_now'.
+        # Добавим ещё одну пустую переменную, чтобы на её примере рассмотреть работу ещё одного фильтра.
+        context['next_sale'] = None
+        pprint(context)
+        return context
+
 class ProductDetail(DetailView):
     # Модель всё та же, но мы хотим получать информацию по отдельному товару
     model = Product
