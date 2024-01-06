@@ -1,15 +1,27 @@
 from django.shortcuts import render
 from django.views.generic import ListView, DetailView
+from datetime import datetime
 from .models import Product
-
+from .filters import ProductFilter
 
 class ProductList(ListView):
     model = Product    # Указываем модель, объекты которой мы будем выводить
     ordering = 'name'  # Поле, которое будет использоваться для сортировки объектов
-    #queryset = Product.objects.filter(price__lt=120).order_by('name')
     template_name = 'products.html'  # Указываем имя шаблона
     context_object_name = 'products' # Это имя списка, в котором будут лежать все объекты.
     # Его надо указать, чтобы обратиться к списку объектов в html-шаблоне.
+    paginate_by = 2  # вот так мы можем указать количество записей на странице
+
+    def get_queryset(self):
+        # Получаем обычный запрос
+        queryset = super().get_queryset()
+        # Используем наш класс фильтрации.
+        # self.request.GET содержит объект QueryDict, который мы рассматривали в этом юните ранее.
+        # Сохраняем нашу фильтрацию в объекте класса,
+        # чтобы потом добавить в контекст и использовать в шаблоне.
+        self.filterset = ProductFilter(self.request.GET, queryset)
+        # Возвращаем из функции отфильтрованный список товаров
+        return self.filterset.qs
 
 
     # Метод get_context_data позволяет нам изменить набор данных,  который будет передан в шаблон.
@@ -21,7 +33,7 @@ class ProductList(ListView):
         # К словарю добавим текущую дату в ключ 'time_now'.
         # Добавим ещё одну пустую переменную, чтобы на её примере рассмотреть работу ещё одного фильтра.
         context['next_sale'] = None
-        pprint(context)
+        context['filterset'] = self.filterset
         return context
 
 class ProductDetail(DetailView):
