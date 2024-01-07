@@ -48,9 +48,12 @@ class ProductDetail(DetailView):
     context_object_name = 'product'
 
 def create_product(request):
-    if request.method == 'post':
+    form = ProductForm(request.GET)  # перенес выше, чтобы видет возможные ошибки при  невалидности формы
+
+    if request.method == 'POST':
         form = ProductForm(request.POST)
-        form.save()
-        return HttpResponseRedirect('/products/')
-    form = ProductForm(request.GET)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect('/products/')
+
     return render(request, 'product_edit.html', {'form': form})
