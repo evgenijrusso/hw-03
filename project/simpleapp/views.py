@@ -3,6 +3,9 @@ from django.views.generic import ListView, DetailView
 from datetime import datetime
 from .models import Product
 from .filters import ProductFilter
+from .forms import ProductForm
+from django.http import HttpResponse, HttpResponseRedirect
+
 
 class ProductList(ListView):
     model = Product    # Указываем модель, объекты которой мы будем выводить
@@ -43,3 +46,11 @@ class ProductDetail(DetailView):
     template_name = 'product.html'
     # Название объекта, в котором будет выбранный пользователем продукт
     context_object_name = 'product'
+
+def create_product(request):
+    if request.method == 'post':
+        form = ProductForm(request.POST)
+        form.save()
+        return HttpResponseRedirect('/products/')
+    form = ProductForm(request.GET)
+    return render(request, 'product_edit.html', {'form': form})
