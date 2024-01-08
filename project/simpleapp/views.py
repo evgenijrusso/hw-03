@@ -1,5 +1,6 @@
+from django.urls import reverse_lazy
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, CreateView
 from datetime import datetime
 from .models import Product
 from .filters import ProductFilter
@@ -47,13 +48,19 @@ class ProductDetail(DetailView):
     # Название объекта, в котором будет выбранный пользователем продукт
     context_object_name = 'product'
 
-def create_product(request):
-    form = ProductForm(request.GET)  # перенес выше, чтобы видет возможные ошибки при  невалидности формы
+class ProductCreate(CreateView):
+    form_class = ProductForm # Указываем нашу разработанную форму
+    model = Product # модель товаров
+    template_name = 'product_edit.html'
 
-    if request.method == 'POST':
-        form = ProductForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return HttpResponseRedirect('/products/')
-
-    return render(request, 'product_edit.html', {'form': form})
+#
+# def create_product(request):
+#     form = ProductForm(request.GET)  # перенес выше, чтобы видет возможные ошибки при  невалидности формы
+#
+#     if request.method == 'POST':
+#         form = ProductForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return HttpResponseRedirect('/products/')
+#
+#     return render(request, 'product_edit.html', {'form': form})
