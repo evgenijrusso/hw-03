@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from django.urls import reverse
 
+
 class Product(models.Model):
     name = models.CharField(max_length=50, unique=True)
     description = models.TextField()

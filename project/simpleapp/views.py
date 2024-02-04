@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
 from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, \
+    UpdateView, DeleteView
 from datetime import datetime
 from .models import Product
 from .filters import ProductFilter
@@ -52,6 +53,21 @@ class ProductCreate(CreateView):
     form_class = ProductForm # Указываем нашу разработанную форму
     model = Product # модель товаров
     template_name = 'product_edit.html'
+
+
+# Добавляем представление для изменения товара.
+class ProductUpdate(UpdateView):
+    form_class = ProductForm
+    model = Product
+    template_name = 'product_edit.html'
+
+
+# Представление удаляющее товар.
+class ProductDelete(DeleteView):
+    model = Product
+    template_name = 'product_delete.html'
+    success_url = reverse_lazy('product_list')
+
 
 #
 # def create_product(request):
